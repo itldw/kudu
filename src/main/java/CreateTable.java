@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class CreateTable {
 
 
-    private static final String KUDU_MASTERS = "192.168.0.118";
+    private static final String KUDU_MASTERS = "192.168.0.122";
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CreateTable.class);
 
     public static void main(String[] args) throws KuduException {
@@ -24,14 +24,14 @@ public class CreateTable {
         KuduClient kuduClient = new KuduClient.KuduClientBuilder(KUDU_MASTERS).build();
 
         List<ColumnSchema> columnSchemas = Lists.newArrayList();
-        columnSchemas.add(new ColumnSchema.ColumnSchemaBuilder("id", Type.STRING).key(true).build());
-        columnSchemas.add(new ColumnSchema.ColumnSchemaBuilder("app", Type.INT8).build());
+        columnSchemas.add(new ColumnSchema.ColumnSchemaBuilder("id", Type.INT32).key(true).build());
+        columnSchemas.add(new ColumnSchema.ColumnSchemaBuilder("name", Type.STRING).build());
         Schema schema = new Schema(columnSchemas);
         ImmutableList<String> hashKeys = ImmutableList.of("id");
         CreateTableOptions cto = new CreateTableOptions();
         cto.addHashPartitions(hashKeys, 2);
         cto.setNumReplicas(1);
-        kuduClient.createTable("studutent", schema, cto);
+        kuduClient.createTable("student", schema, cto);
         kuduClient.close();
 
     }
