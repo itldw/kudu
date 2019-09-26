@@ -5,7 +5,7 @@ public class InsertRow {
     public static void main(String[] args) {
         //master地址
         //String masterAddr = "192.168.0.118";
-        String masterAddr = "192.168.0.122";
+        String masterAddr = "192.168.0.118";
 
         KuduClient client = new KuduClient.KuduClientBuilder(masterAddr)
                 .defaultSocketReadTimeoutMs(6000).build();
